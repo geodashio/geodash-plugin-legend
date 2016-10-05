@@ -48,10 +48,10 @@
             <svg width="100%" height="40px" version="1.0" xmlns="http://www.w3.org/2000/svg">
               <rect
                 ng-repeat="color in ramp track by $index"
-                ng-attr-x="{{ $index|percent:ramp.length }}%"
+                ng-attr-x="{{ $index | percent: ramp.length }}%"
                 y="0"
-                ng-attr-width="{{ 1|percent:ramp.length }}%"
-                ng-attr-height="20px"
+                ng-attr-width="{{ 1 | percent: ramp.length }}%"
+                ng-attr-height="{{ '20px' }}"
                 ng-attr-fill="{{ color }}"
                 stroke-width="1"
                 stroke="#000000"/>
