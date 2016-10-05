@@ -117,7 +117,7 @@ geodash.controllers.GeoDashControllerLegend = function(
     if(angular.isDefined(layer))
     {
       var styleID = 0;
-      var symbolizers = extract(["carto", "styles", styleID, "stymbolizers"], layer, []);
+      var symbolizers = extract(["carto", "styles", styleID, "symbolizers"], layer, []);
       for(var i = 0; i < symbolizers.length; i++)
       {
         var symbolizer = symbolizers[i];
