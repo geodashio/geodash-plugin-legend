@@ -157,12 +157,12 @@ geodash.controllers.GeoDashControllerLegend = function(
       //$scope.featurelayers = featurelayers;
       $scope.featurelayers = $scope.map_config.featurelayers;
 
-      var visiblefeaturelayers = $.grep($scope.featurelayers,function(x, i){
+      var visibleFeaturelayers = $.grep($scope.featurelayers,function(x, i){
         return $.inArray(x["id"], $scope.ui.layers) != -1 &&
           $.inArray(x["id"], $scope.state.view.featurelayers) != -1;
       });
-      visiblefeaturelayers.sort(function(a, b){ return $.inArray(a["id"], $scope.state.view.featurelayers) - $.inArray(b["id"], $scope.state.view.featurelayers); });
-      $scope.visiblefeaturelayers = visiblefeaturelayers;
+      visibleFeaturelayers.sort(function(a, b){ return $.inArray(a["id"], $scope.state.view.featurelayers) - $.inArray(b["id"], $scope.state.view.featurelayers); });
+      $scope.visibleFeaturelayers = visibleFeaturelayers;
     }
     else
     {
