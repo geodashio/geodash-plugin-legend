@@ -126,7 +126,7 @@ geodash.controllers.GeoDashControllerLegend = function(
           ramp = extract(["dynamic", "options", "colors", "ramp"], symbolizer);
           if(angular.isDefined(ramp))
           {
-            break;  
+            break;
           }
         }
       }
@@ -156,6 +156,13 @@ geodash.controllers.GeoDashControllerLegend = function(
       //featurelayers.sort(function(a, b){ return $.inArray(a["id"], arrayFilter) - $.inArray(b["id"], arrayFilter); });
       //$scope.featurelayers = featurelayers;
       $scope.featurelayers = $scope.map_config.featurelayers;
+
+      var visiblefeaturelayers = $.grep($scope.featurelayers,function(x, i){
+        return $.inArray(x["id"], $scope.ui.layers) != -1 &&
+          $.inArray(x["id"], $scope.state.view.featurelayers) != -1;
+      });
+      visiblefeaturelayers.sort(function(a, b){ return $.inArray(a["id"], $scope.state.view.featurelayers) - $.inArray(b["id"], $scope.state.view.featurelayers); });
+      $scope.visiblefeaturelayers = visiblefeaturelayers;
     }
     else
     {

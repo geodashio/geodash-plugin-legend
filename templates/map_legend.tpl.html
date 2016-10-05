@@ -4,7 +4,7 @@
   style="{{ style() }}">
   <div class="container-fluid">
     <div
-      ng-repeat="layer in featurelayers track by $index"
+      ng-repeat="layer in visibleFeaturelayers track by $index"
       ng-init="layerIndex = $index"
       ng-if="layer.title | ternary_defined : true : false"
       class="geodash-map-legend-layer noselect row"
