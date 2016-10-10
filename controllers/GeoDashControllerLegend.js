@@ -1,21 +1,18 @@
-geodash.controllers.GeoDashControllerLegend = function(
-  $scope,
-  $element,
-  $controller,
-  state,
-  map_config,
-  live)
+geodash.controllers.GeoDashControllerLegend = function($scope, $element, $controller)
 {
   angular.extend(this, $controller('GeoDashControllerBase', {$element: $element, $scope: $scope}));
   //
-  $scope.map_config = map_config;
-  $scope.state = state;
+  var mainScope = $element.parents(".geodash-dashboard:first").isolateScope();
+  $scope.dashboard = mainScope.dashboard;
+  $scope.dashboard_flat = mainScope.dashboard_flat;
+  $scope.state = mainScope.state;
+  $scope.assets = geodash.util.arrayToObject(extract("assets", $scope.dashboard));
   //////////////
 
   $scope.style = function()
   {
     var styleMap = {};
-    var legend = extract("legend", $scope.map_config);
+    var legend = extract("legend", $scope.dashboard);
     if(angular.isDefined(legend))
     {
       angular.extend(styleMap,{
@@ -40,7 +37,7 @@ geodash.controllers.GeoDashControllerLegend = function(
 
       if(angular.isDefined(extract("css.properties", legend)))
       {
-        angular.extend(styleMap, geodash.api.arrayToObject(extract("css.properties", legend)));
+        angular.extend(styleMap, geodash.util.arrayToObject(extract("css.properties", legend)));
       }
     }
 
@@ -105,7 +102,7 @@ geodash.controllers.GeoDashControllerLegend = function(
       {
         params["STYLE"] = layer["wms"]["styles"]
       }
-      var querystring = $.map(geodash.api.objectToArray(params), function(x){ return x["name"]+"="+x["value"]; });
+      var querystring = $.map(geodash.util.objectToArray(params), function(x){ return x["name"]+"="+x["value"]; });
       url = baseurl+"?"+querystring.join("&");
     }
     return url
@@ -135,27 +132,26 @@ geodash.controllers.GeoDashControllerLegend = function(
   };
 
   $scope.updateVariables = function(){
-    var arrayFilter = $scope.map_config.legendlayers;
 
-    //if("baselayers" in $scope.map_config && $scope.map_config.baselayers != undefined)
-    if(Array.isArray(extract("baselayers", $scope.map_config)))
+    //if("baselayers" in $scope.dashboard && $scope.dashboard.baselayers != undefined)
+    if(Array.isArray(extract("baselayers", $scope.dashboard)))
     {
-      //var baselayers = $.grep($scope.map_config.baselayers,function(x, i){ return $.inArray(x["id"], arrayFilter) != -1; });
+      //var baselayers = $.grep($scope.dashboard.baselayers,function(x, i){ return $.inArray(x["id"], arrayFilter) != -1; });
       //baselayers.sort(function(a, b){ return $.inArray(a["id"], arrayFilter) - $.inArray(b["id"], arrayFilter); });
-      $scope.baselayers = $scope.map_config.baselayers;
+      $scope.baselayers = $scope.dashboard.baselayers;
     }
     else
     {
       $scope.baselayers = [];
     }
 
-    if(Array.isArray(extract("featurelayers", $scope.map_config)))
+    if(Array.isArray(extract("featurelayers", $scope.dashboard)))
     {
-      //var featurelayers = $.map($scope.map_config.featurelayers, function(item, key){ return {'key': key, 'item': item}; });
-      //var featurelayers = $.grep($scope.map_config.featurelayers,function(x, i){ return $.inArray(x["id"], arrayFilter) != -1; });
+      //var featurelayers = $.map($scope.dashboard.featurelayers, function(item, key){ return {'key': key, 'item': item}; });
+      //var featurelayers = $.grep($scope.dashboard.featurelayers,function(x, i){ return $.inArray(x["id"], arrayFilter) != -1; });
       //featurelayers.sort(function(a, b){ return $.inArray(a["id"], arrayFilter) - $.inArray(b["id"], arrayFilter); });
       //$scope.featurelayers = featurelayers;
-      $scope.featurelayers = $scope.map_config.featurelayers;
+      $scope.featurelayers = $scope.dashboard.featurelayers;
 
       var visibleFeaturelayers = $.grep($scope.featurelayers,function(x, i){
         return $.inArray(x["id"], $scope.state.view.featurelayers) != -1;
@@ -170,8 +166,8 @@ geodash.controllers.GeoDashControllerLegend = function(
 
   };
   $scope.updateVariables();
-  //$scope.$watch('map_config.featurelayers', $scope.updateVariables);
-  //$scope.$watch('map_config.legendlayers', $scope.updateVariables);
+  //$scope.$watch('dashboard.featurelayers', $scope.updateVariables);
+  //$scope.$watch('dashboard.legendlayers', $scope.updateVariables);
   $scope.$watch('state', $scope.updateVariables);
   //////////////
   var jqe = $($element);
