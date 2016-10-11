@@ -53,6 +53,12 @@ legend:
         placeholder: height
         required: true
         description: "The height of the legend (in pixels or percentage)."
+      - id: grid
+        type: stringarray
+        label: Grid
+        placeholder: grid
+        required: true
+        description: "The classes of the grid.  First value is for the left.  Second is for the right.  You can use bootstrap classes."
       - id: css
         type: object
         label: CSS

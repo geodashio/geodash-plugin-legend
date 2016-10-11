@@ -7,7 +7,24 @@ geodash.controllers.GeoDashControllerLegend = function($scope, $element, $contro
   $scope.dashboard_flat = mainScope.dashboard_flat;
   $scope.state = mainScope.state;
   $scope.assets = geodash.util.arrayToObject(extract("assets", $scope.dashboard));
+  $scope.grid = extract("legend.grid", $scope.dashboard);
+  $scope.defaultGrid = [
+    "col-sm-3",
+    "col-sm-9"
+  ];
   //////////////
+
+  $scope.class = function(column)
+  {
+    if(angular.isNumber(column) && column >= 0)
+    {
+      return extract([column], $scope.grid, $scope.defaultGrid[column]);
+    }
+    else
+    {
+      return "";
+    }
+  };
 
   $scope.style = function()
   {
