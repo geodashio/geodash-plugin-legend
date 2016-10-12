@@ -1,4 +1,4 @@
-geodash.controllers.GeoDashControllerLegend = function($scope, $element, $controller)
+geodash.controllers.GeoDashControllerLegend = function($scope, $element, $controller, $timeout)
 {
   angular.extend(this, $controller('GeoDashControllerBase', {$element: $element, $scope: $scope}));
   //
@@ -193,8 +193,11 @@ geodash.controllers.GeoDashControllerLegend = function($scope, $element, $contro
   $scope.$on("refreshMap", function(event, args){
     console.log('args: ', args);
 
-    $scope.state = args.state;
+    $scope.state = undefined;
+    $scope.newState = args.state;
     $scope.updateVariables();
+
+    setTimeout(function(){ $scope.state = geodash.util.deepCopy($scope.newState); $scope.updateVariables(); },0);
 
     /*
     $scope.$apply(function()
