@@ -199,7 +199,12 @@ geodash.controllers.GeoDashControllerLegend = function($scope, $element, $contro
     $scope.featurelayers = undefined;
     $scope.visibleFeaturelayers = undefined;
 
-    setTimeout(function(){ $scope.state = geodash.util.deepCopy($scope.newState); $scope.updateVariables(); },0);
+    setTimeout(function(){
+      $scope.$apply(function(){
+        $scope.state = geodash.util.deepCopy($scope.newState);
+        $scope.updateVariables();
+      });
+    },0);
 
     /*
     $scope.$apply(function()
