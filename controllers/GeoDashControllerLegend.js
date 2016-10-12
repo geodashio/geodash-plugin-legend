@@ -148,7 +148,8 @@ geodash.controllers.GeoDashControllerLegend = function($scope, $element, $contro
     return ramp;
   };
 
-  $scope.updateVariables = function(){
+  $scope.updateVariables = function()
+  {
 
     //if("baselayers" in $scope.dashboard && $scope.dashboard.baselayers != undefined)
     if(Array.isArray(extract("baselayers", $scope.dashboard)))
@@ -193,6 +194,8 @@ geodash.controllers.GeoDashControllerLegend = function($scope, $element, $contro
     console.log('args: ', args);
 
     $scope.state = args.state;
+    $scope.updateVariables();
+
     /*
     $scope.$apply(function()
     {
