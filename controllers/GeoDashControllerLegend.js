@@ -170,12 +170,18 @@ geodash.controllers.GeoDashControllerLegend = function($scope, $element, $contro
       //featurelayers.sort(function(a, b){ return $.inArray(a["id"], arrayFilter) - $.inArray(b["id"], arrayFilter); });
       //$scope.featurelayers = featurelayers;
       $scope.featurelayers = $scope.dashboard.featurelayers;
-
-      var visibleFeaturelayers = $.grep($scope.featurelayers,function(x, i){
-        return $.inArray(x["id"], $scope.state.view.featurelayers) != -1;
-      });
-      visibleFeaturelayers.sort(function(a, b){ return $.inArray(a["id"], $scope.state.view.featurelayers) - $.inArray(b["id"], $scope.state.view.featurelayers); });
-      $scope.visibleFeaturelayers = visibleFeaturelayers;
+      if(angular.isDefined(extract("state.view.featurelayers", $scope)))
+      {
+        var visibleFeaturelayers = $.grep($scope.featurelayers,function(x, i){
+          return $.inArray(x["id"], $scope.state.view.featurelayers) != -1;
+        });
+        visibleFeaturelayers.sort(function(a, b){ return $.inArray(a["id"], $scope.state.view.featurelayers) - $.inArray(b["id"], $scope.state.view.featurelayers); });
+        $scope.visibleFeaturelayers = visibleFeaturelayers;
+      }
+      else
+      {
+        $scope.visibleFeaturelayers = [];
+      }
     }
     else
     {
