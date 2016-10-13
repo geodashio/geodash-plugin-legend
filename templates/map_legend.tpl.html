@@ -8,6 +8,7 @@
       ng-init="layerIndex = $index"
       ng-if="layer.title | ternary_defined : true : false"
       class="geodash-map-legend-layer noselect row"
+      style="margin-bottom:8px;"
       data-layer="{{ layer.id }}">
       <div ng-if="getLegendType(layer) == 'legendgraphic'" class="col-sm-12">
         <div class="row" style="margin-bottom:8px;">
@@ -19,7 +20,7 @@
           <div class="{{ class(1) }}">
             <span
               class="h5"
-              style="{{ {} | ellipsis | css }}"
+              style="{{ {'margin': '0'} | ellipsis | css }}"
               data-toggle="tooltip"
               data-placement="bottom"
               data-container="#geodash-map-legend"
