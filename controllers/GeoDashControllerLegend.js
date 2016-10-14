@@ -186,6 +186,7 @@ geodash.controllers.GeoDashControllerLegend = function($scope, $element, $contro
     else
     {
       $scope.featurelayers = [];
+      $scope.visibleFeaturelayers = [];
     }
 
   };
@@ -199,18 +200,26 @@ geodash.controllers.GeoDashControllerLegend = function($scope, $element, $contro
   $scope.$on("refreshMap", function(event, args){
     console.log('args: ', args);
 
-    $scope.state = undefined;
-    $scope.newState = args.state;
-    $scope.baselayers = undefined;
-    $scope.featurelayers = undefined;
-    $scope.visibleFeaturelayers = undefined;
+    if(geodash.util.diff(["state.view.featurelayers", "state.view.baselayer"], $scope.state, args.state).length > 0)
+    {
+      $scope.state = undefined;
+      $scope.newState = args.state;
+      $scope.updateVariables();
 
-    setTimeout(function(){
-      $scope.$apply(function(){
-        $scope.state = geodash.util.deepCopy($scope.newState);
-        $scope.updateVariables();
-      });
-    },0);
+      setTimeout(function(){
+        $scope.$apply(function(){
+          $scope.state = geodash.util.deepCopy($scope.newState);
+          $scope.updateVariables();
+        });
+      },0);
+    }
+    else
+    {
+      $scope.state = geodash.util.deepCopy($scope.newState);
+      $scope.updateVariables();
+    }
+
+
 
     /*
     $scope.$apply(function()
