@@ -117,12 +117,12 @@ geodash.controllers.GeoDashControllerLegend = function($scope, $element, $contro
       };
       if(angular.isDefined(extract("wms.styles", layer)))
       {
-        params["STYLE"] = layer["wms"]["styles"]
+        params["STYLE"] = layer["wms"]["styles"];
       }
       var querystring = $.map(geodash.util.objectToArray(params), function(x){ return x["name"]+"="+x["value"]; });
       url = baseurl+"?"+querystring.join("&");
     }
-    return url
+    return url;
   };
   $scope.getColorRamp = function(layer, style)
   {
@@ -200,7 +200,7 @@ geodash.controllers.GeoDashControllerLegend = function($scope, $element, $contro
   $scope.$on("refreshMap", function(event, args){
     console.log('args: ', args);
 
-    if(geodash.util.diff(["state.view.featurelayers", "state.view.baselayer"], $scope.state, args.state).length > 0)
+    if(geodash.util.diff(["view.featurelayers", "view.baselayer"], $scope.state, args.state).length > 0)
     {
       $scope.state = undefined;
       $scope.newState = args.state;
